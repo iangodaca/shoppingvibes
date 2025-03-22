@@ -1,0 +1,568 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SM City Bacolod</title>
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        body {
+            font-family: 'Courier New', Courier, monospace;
+            margin: 0;
+            padding: 0;
+            background: #f4f4f4;
+            text-align: center;
+        }
+
+        header {
+            background: rgba(255, 255, 255, 0.8);
+            color: black;
+            padding: 10px 0;
+        }
+
+        nav {            
+            background: rgba(0, 0, 0, 0.8);
+            padding: 10px;
+            display: flex;
+            justify-content: flex-end;
+            flex-wrap: wrap;
+            position: fixed;
+            top: 0;
+            width: 100%;
+            z-index: 1000;
+        }
+
+        nav ul {
+            list-style: none;
+            display: flex;
+            gap: 20px;
+            margin: 0;
+            padding: 10px;
+            margin-right: 20px;
+        }
+
+        nav ul li {
+            display: inline;
+        }
+
+        nav ul li a {
+            color: rgb(255, 255, 255);
+            text-decoration: none;
+            font-size: 20px;
+            padding: 8px 20px;
+            font-weight: bold;
+        }
+
+        nav ul li a:hover {
+            background-color: #495057;
+            color: white;
+            border-radius: 5px;
+        }
+
+        h1 {
+            margin-top: 80px;
+            font-size: 36px;
+            font-weight: bold;
+        }
+        
+        .dropdown {
+            position: relative;
+        }
+
+        .dropdown-menu {
+            font-size: 8px;
+            display: none;
+            position: absolute;
+            background: rgba(0, 0, 0, 0.9);
+            list-style: none;
+            padding: 10px 0;
+            min-width: 320px;
+            border-radius: 5px;
+            box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+        }
+
+        .dropdown-menu li {
+            text-align: left;
+            padding: 8px 20px;
+        }
+
+        .dropdown-menu li a {
+            color: white;
+            text-decoration: none;
+            display: block;
+            font-size: 16px;
+        }
+
+        .dropdown-menu li a:hover {
+            background: #495057;
+            border-radius: 5px;
+        }
+
+        .dropdown:hover .dropdown-menu {
+            display: block;
+        }
+
+        h2 {
+            font-size: 20px;
+            font-weight: bold;
+        }
+        .paragraph {
+            border: 2px solid #ddd; 
+            padding: 10px;
+            margin: 50px;
+            border-radius: 5px; 
+            background-color: #f9f9f9; 
+            box-sizing: border-box; 
+            font-size: 12px;
+            display: flex;
+            margin-top: -10px;
+            text-align: justify; 
+        }
+        .gallery {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+            width: 100%;
+            margin: auto;
+        }
+
+        .gallery-item {
+            background: white;
+            padding: 15px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            width: 90%;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 10px;            
+        }
+
+        .gallery-item img {
+            width: 100%;
+            height: auto;
+            border-radius: 5px;
+            margin-bottom: 10px;
+            transition: transform 0.3s;
+            width: 100px; 
+            border-radius: 5px;
+        }
+
+        .gallery-item img:hover {
+            transform: scale(1.05);
+        }
+
+        .gallery-item p {
+            min-height: 50px;
+            font-size: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-top: -20px;
+        }
+
+        .gallery-item .superm {
+            min-height: 50px;
+            font-size: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-top: -80px;
+        }
+
+        @media (max-width: 768px) {
+            .gallery {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        footer {
+            background: rgba(0, 0, 0, 0.8);
+            color: rgb(255, 255, 255);
+            padding: 8px 0;
+            position: fixed;
+            width: 100%;
+            bottom: 0;
+            font-size: 14px;
+        }
+
+        .comment-section {
+            max-width: 600px;
+            margin: 20px auto;
+            padding: 20px;
+            background: #fff;
+            border-radius: 8px;
+            box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .comment-section {
+            width: 100%;
+            max-width: 600px;
+            margin: 20px auto;
+            padding: 20px;
+            background: #f9f9f9;
+            border-radius: 8px;
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .comment-section h2 {
+            text-align: center;
+            color: #333;
+            font-size: 20px;
+            margin-bottom: 15px;
+        }
+
+        .comment-section input,
+        .comment-section textarea {
+            width: 95%;
+            padding: 10px;
+            margin-bottom: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-size: 14px;
+        }
+
+        .comment-section textarea {
+            height: 100px;
+            resize: none;
+        }
+
+        .comment-section button {
+            width: 25%;
+            padding: 10px;
+            background: #007bff;
+            border: none;
+            color: white;
+            font-size: 16px;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+
+        .comment-section button:hover {
+            background: #0056b3;
+        }
+
+        #comments-container {
+            margin-top: 20px;
+        }
+
+        .comment {
+            background: white;
+            padding: 10px;
+            border-left: 4px solid #007bff;
+            border-radius: 5px;
+            margin-bottom: 10px;
+            box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);
+        }
+
+        .comment p {
+            margin: 5px 0;
+        }
+
+        .comment .commenter-name {
+            font-weight: bold;
+            color: #007bff;
+        }
+
+        .comment .timestamp {
+            font-size: 12px;
+            color: gray;
+        }
+
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.8);
+            justify-content: center;
+            align-items: center;
+        }
+
+        .modal-content {
+            max-width: 80%;
+            max-height: 80%;
+            border-radius: 10px;
+        }
+
+        .close {
+            position: absolute;
+            top: 20px;
+            right: 30px;
+            font-size: 40px;
+            color: white;
+            cursor: pointer;
+        }
+        .gallery-images {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            justify-content: center;
+        }
+
+        .gallery-images img {
+            width: 100px; 
+            height: 150px;
+            object-fit: cover;
+            border-radius: 5px; 
+            border: 1px solid #ddd;
+        }
+    
+        nav ul .dropdown-menu li a.active {
+            background-color: #80c1ff;
+            font-weight: bold;
+            padding: 5px 20px;
+        }
+        
+        nav ul li.dropdown:has(.dropdown-menu li a.active) > a {
+            background-color: #1500ff;
+            font-weight: bold;
+            border-radius: 5px;
+        }
+        .site-title {
+            color: white;
+            font-size: 24px;
+            font-weight: bold;
+            padding: 10px 20px;
+            text-transform: uppercase;
+        }
+
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px 20px;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <nav>
+            <span class="site-title">Shopping Vibes</span>
+            <ul>
+                <li><a href="home.html" class="active">Home</a></li>
+                <li class="dropdown">
+                    <a href="#">Malls</a>
+                    <ul class="dropdown-menu">
+                        <li><a href="sm.html">SM City Bacolod</a></li>
+                        <li><a href="ayala.html" class="active">Ayala Malls Capitol Central</a></li>
+                        <li><a href="888.html">888 Chinatown Square Bacolod</a></li>
+                        <li><a href="robinsons.html">Robinsons Place Bacolod</a></li>
+                    </ul>
+                </li>
+                <li><a href="about.html">About</a></li>
+                <li><a href="contact.html">Contact</a></li>
+            </ul>
+        </nav>
+    </header>
+    <h1>Ayala Malls Capitol Central</h1>
+    <p class="paragraph">Ayala Malls Capitol Central strengthens the Negrense tradition by showcasing the best home-grown concepts. Enhancing the shopping experience through a mix of local and global offerings, alongside it’s key features of the Fiesta Negrense, the Central Hall, the Food Choices, the Central Bazaar, the Chapel and the Corte, it becomes the perfect location to celebrate small winnings, major milestones, and intimate gatherings. The mall was walking distance from where we were billeted so it was convenient for us to drop by for emergencies or snacks.
+It’s a fair sized mall with a wide variety of restaurants to choose from. I liked the area where they were selling the native delicacies .
+But when you look at it, there really wasn’t anything extra special about the mall.
+Other than it’s proximity to our hotel making it convenient, there’s really nothing much more for me to say .</p>
+    <div id="imageModal" class="modal">
+        <span class="close" onclick="closeModal()">&times;</span>
+        <img class="modal-content" id="modalImage">
+    </div>
+    <div class="gallery">
+
+        <div class="gallery-item">
+            <h2>Ayala Market</h2>
+            <p>Shop for fresh produce, groceries, and specialty items at Ayala Market.</p>
+            <div class="gallery-images">
+            <img src="img/ayalamarket.jpg" alt="Ayala Market Entrance">
+            <img src="img/ayalamarket1.jpg" alt="Ayala Market Fresh Produce">
+            <img src="img/ayalamarket2.jpg" alt="Ayala Market Grocery Section">
+            <img src="img/ayalamarket3.jpg" alt="Ayala Market Shoppers">
+            <img src="img/ayalamarket4.jpg" alt="Ayala Market Aisles">
+            <img src="img/ayalamarket5.jpg" alt="Ayala Market Checkout Area">
+            </div>
+        </div>
+        
+        <div class="gallery-item">
+            <h2>Botejyu Japanese Restaurant</h2>
+            <p>Enjoy authentic Japanese cuisine at Botejyu, located inside Ayala Mall.</p>
+            <div class="gallery-images">
+            <img src="img/ayalabotejyu.jpg" alt="Botejyu Japanese Restaurant Entrance">
+            <img src="img/ayalabotejyu1.jpg" alt="Botejyu Japanese Restaurant Interior">
+            <img src="img/ayalabotejyu2.jpg" alt="Botejyu Japanese Food Selection">
+            <img src="img/ayalabotejyu3.jpg" alt="Botejyu Japanese Restaurant Seating">
+            <img src="img/ayalabotejyu4.jpg" alt="Botejyu Staff Serving Food">
+            <img src="img/ayalabotejyu5.jpg" alt="Botejyu Customers Dining">
+            </div>
+        </div>
+        
+        <div class="gallery-item">
+            <h2>Apple iStore</h2>
+            <p>Discover the latest Apple products at iStore, featuring MacBooks, iPhones, and accessories.</p>
+            <div class="gallery-images">
+            <img src="img/ayalaistore.jpg" alt="Apple iStore Entrance">
+            <img src="img/ayalaistore1.jpg" alt="Apple iStore Product Display">
+            <img src="img/ayalaistore2.jpg" alt="Apple iStore Gadgets">
+            <img src="img/ayalaistore3.jpg" alt="Apple iStore MacBook and iPhones">
+            <img src="img/ayalaistore4.jpg" alt="Apple iStore Customer Testing Devices">
+            <img src="img/ayalaistore5.jpg" alt="Apple iStore Accessories">
+            </div>
+        </div>
+        
+        <div class="gallery-item">
+            <h2>Raechel’s Café</h2>
+            <p>Indulge in delicious pastries, coffee, and specialty drinks at Raechel’s Café in Ayala Mall.</p>
+            <div class="gallery-images">
+            <img src="img/ayalaraechels.jpg" alt="Raechel’s Café Exterior">
+            <img src="img/ayalaraechels1.jpg" alt="Raechel’s Café Interior">
+            <img src="img/ayalaraechels2.jpg" alt="Raechel’s Café Menu">
+            <img src="img/ayalaraechels3.jpg" alt="Raechel’s Café Counter">
+            <img src="img/ayalaraechels4.jpg" alt="Raechel’s Café Coffee and Pastries">
+            <img src="img/ayalaraechels5.jpg" alt="Raechel’s Café Customers Enjoying Drinks">
+            </div>
+        </div>
+        
+        <div class="gallery-item">
+            <h2>Rib Shack</h2>
+            <p>Satisfy your cravings with mouthwatering ribs and grilled dishes at Rib Shack.</p>
+            <div class="gallery-images">
+            <img src="img/ayalaribshack.jpg" alt="Rib Shack Entrance">
+            <img src="img/ayalaribshack1.jpg" alt="Rib Shack Dining Area">
+            <img src="img/ayalaribshack2.jpg" alt="Rib Shack Food Selection">
+            <img src="img/ayalaribshack3.jpg" alt="Rib Shack Grill Station">
+            <img src="img/ayalaribshack4.jpg" alt="Rib Shack Signature Ribs">
+            <img src="img/ayalaribshack5.jpg" alt="Rib Shack Customers Enjoying Meals">
+            </div>
+        </div>       
+    </div>  
+    <div class="comment-section">
+        <h2>Leave a Comment</h2>
+        <input type="text" id="comment_name" placeholder="Your full name">
+        <textarea id="comment-input" placeholder="Write your comment..."></textarea>
+        <button onclick="addComment()">Post Comment</button>
+        <div id="comments-container"></div>
+    </div>
+
+    <footer>
+        <p>&copy; 2025 Jade's Website</p>
+    </footer>
+
+    <script>
+    document.addEventListener("DOMContentLoaded", loadComments);
+    
+    function addComment() {
+        const nameInput = document.getElementById("comment_name");
+        const commentInput = document.getElementById("comment-input");
+        const commentsContainer = document.getElementById("comments-container");
+    
+        const commenterName = nameInput.value.trim();
+        const commentText = commentInput.value.trim();
+    
+        if (commentText !== "" && commenterName !== "") {
+            let now = new Date();
+            let options = { year: 'numeric', month: 'long', day: 'numeric', 
+                            hour: '2-digit', minute: '2-digit', second: '2-digit', hour12: true };
+            const timestamp = now.toLocaleString('en-US', options);
+    
+            const commentData = { commenterName, commentText, timestamp };
+    
+            let comments = JSON.parse(localStorage.getItem("comments_ayala")) || [];
+            comments.unshift(commentData);
+            localStorage.setItem("comments_ayala", JSON.stringify(comments));
+    
+            loadComments();
+    
+            nameInput.value = "";
+            commentInput.value = "";
+        } else {
+            alert("Please enter both your name and a comment.");
+        }
+    }
+    
+    function displayComment(commentData) {
+        const commentsContainer = document.getElementById("comments-container");
+    
+        const commentDiv = document.createElement("div");
+        commentDiv.classList.add("comment");
+        commentDiv.style.borderBottom = "1px solid #ddd";
+        commentDiv.style.padding = "10px";
+        commentDiv.style.marginBottom = "10px";
+    
+        const nameContent = document.createElement("p");
+        nameContent.innerHTML = `<strong>Name:</strong> <span class="commenter-name">${commentData.commenterName}</span>`;
+    
+        const commentContent = document.createElement("p");
+        commentContent.innerHTML = `<strong>Comment:</strong> <span class="comment-text">${commentData.commentText}</span>`;
+    
+        const timestampElement = document.createElement("p");
+        timestampElement.style.color = "gray";
+        timestampElement.style.fontSize = "12px";
+        timestampElement.textContent = `[${commentData.timestamp}]`;
+    
+        commentDiv.appendChild(nameContent);
+        commentDiv.appendChild(commentContent);
+        commentDiv.appendChild(timestampElement);
+    
+        // Edit Button
+        const editButton = document.createElement("button");
+        editButton.textContent = "Edit";
+        editButton.style.marginRight = "5px";
+        editButton.onclick = () => {
+            const newComment = prompt("Edit your comment:", commentData.commentText);
+            if (newComment !== null && newComment.trim() !== "") {
+                commentData.commentText = newComment.trim();
+                localStorage.setItem("comments_ayala", JSON.stringify(comments));
+                loadComments();
+            }
+        };
+
+        // Delete Button
+        const deleteButton = document.createElement("button");
+        deleteButton.textContent = "Delete";
+        deleteButton.style.backgroundColor = "red";
+        deleteButton.style.color = "white";
+        deleteButton.onclick = () => {
+            if (confirm("Are you sure you want to delete this comment?")) {
+                comments = comments.filter(comment => comment.commentText !== commentData.commentText);
+                localStorage.setItem("comments_ayala", JSON.stringify(comments));
+                loadComments();
+            }
+        };
+
+        commentDiv.appendChild(editButton);
+        commentDiv.appendChild(deleteButton);
+    
+        commentsContainer.appendChild(commentDiv);
+    }
+    
+    function loadComments() {
+        const commentsContainer = document.getElementById("comments-container");
+        commentsContainer.innerHTML = "";
+    
+        const comments = JSON.parse(localStorage.getItem("comments_ayala")) || [];
+        comments.forEach(displayComment);
+    }
+
+    function openModal(src) {
+        document.getElementById("modalImage").src = src;
+        document.getElementById("imageModal").style.display = "flex";
+    }
+
+    function closeModal() {
+        document.getElementById("imageModal").style.display = "none";
+    }
+
+    document.querySelectorAll(".gallery-item img").forEach(img => {
+        img.addEventListener("click", function() {
+            openModal(this.src);
+        });
+    });
+</script>
+
+</body>
+</html>
+
+
+
+
